@@ -1,0 +1,25 @@
+[
+  
+    {
+
+      "title"    : "Warp shader",
+      "description" : "A post describing a shader effect.",
+      "url"      : "/2024/10/08/warp-shader",
+      "category" : "",
+      "tags"     : "shaders",
+      "date"     : "2024-10-08 00:00:00 +0200"
+
+    } ,
+  
+    {
+
+      "title"    : "First post",
+      "description" : "This is the first post.",
+      "url"      : "/2024/10/08/first-post",
+      "category" : "",
+      "tags"     : "first",
+      "date"     : "2024-10-08 00:00:00 +0200"
+
+    } 
+  
+]
