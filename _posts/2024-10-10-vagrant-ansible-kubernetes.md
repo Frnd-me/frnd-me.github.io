@@ -520,6 +520,18 @@ Instead of accessing the master node via SSH every time to interact with the Kub
 
 Since we have forwarded the master node's API server port to the host machine (port 6443), you can access the Kubernetes cluster directly from your host.
 
+# Incorrect internal IP
+
+I noticed that the internal IP of every node was set to the IP address of the Vagrant host machine, which can be resolved by explicitly setting the _--node-ip_:
+
+{% highlight yaml %}
+{% raw %}
+- name: Set node IP
+  ansible.builtin.shell: >
+    sed -i.bak 's/\(Environment="KUBELET_KUBECONFIG_ARGS=.*\)"$/\1 --node-ip={{ node_ip }}"/' /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+{% endraw %}
+{% endhighlight %}
+
 # Lastly
 
 Thanks to [Stefan Pedratscher](https://github.com/stefanpedratscher) for contributing to this post.
