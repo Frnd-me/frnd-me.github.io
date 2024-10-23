@@ -65,6 +65,8 @@ Import the Talos Installation Image: We’ll import the ISO file for Talos.
 {% highlight console %}
 $ incus storage volume import default metal-amd64.iso talos-iso --type=iso
 {% endhighlight %}
+
+Here <em>metal-amd64.iso</em> refers to the <a href="https://www.talos.dev/v1.8/talos-guides/install/bare-metal-platforms/iso/">bare metal image</a>.
 </li>
 <li>
 Attach the ISO to the VM: Add the Talos ISO as a bootable device to the VM.
