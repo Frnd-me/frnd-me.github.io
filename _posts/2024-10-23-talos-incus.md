@@ -6,7 +6,7 @@ summary:
 tags: [incus, talos, kubernetes, qemu]
 ---
 
-Incus is a versatile tool for managing containers with LXC and virtual machines (VMs) using QEMU, offering a fast and efficient way to create VMs. Forked from LXD, Incus provides a powerful alternative to traditional virtualization platforms like VirtualBox. By utilizing KVM for hardware-accelerated virtualization via QEMU, Incus enables rapid VM deployment, ideal for scenarios requiring multiple instances.
+Incus is a versatile tool for managing containers with LXC and virtual machines (VMs) using QEMU. It offers a fast and efficient way to create VMs. Forked from LXD, Incus provides a powerful alternative to traditional virtualization platforms like VirtualBox. Using KVM for hardware-accelerated virtualization via QEMU, Incus enables rapid VM deployment, which is ideal for scenarios requiring multiple instances.
 
 This guide will walk you through setting up VMs with Incus on Arch Linux, configuring the firewall, installing Talos, and spinning up a Kubernetes cluster.
 
@@ -18,9 +18,11 @@ This guide assumes you're using Arch Linux as the host operating system. Make su
 - **firewalld:** The firewall management tool. Follow the Arch wiki guide for installation [here](https://wiki.archlinux.org/title/Firewalld).
 - **KVM:** Ensure your system supports hardware-accelerated virtualization via KVM. Check the Arch guide [here](https://wiki.archlinux.org/title/KVM).
 
+For instructions on installing Incus, refer to the [Arch wiki](https://wiki.archlinux.org/title/Incus).
+
 # Configuring the firewall
 
-To allow traffic through the virtual network bridge used by Incus, you’ll need to adjust your firewall settings. The Incus network bridge is called _incusbr0_.
+You'll need to adjust your firewall settings to allow traffic through Incus's virtual network bridge, called _incusbr0_.
 
 <ol>
 <li>
@@ -41,13 +43,13 @@ $ firewall-cmd --reload
 </li>
 </ol>
 
-Incorrect firewall settings can block network traffic to and from your VMs, so ensure this step is done correctly.
+Incorrect firewall settings can block network traffic to and from your VMs, so please ensure this step is done correctly.
 
 # Creating and starting a virtual machine
 
 We’ll start by creating a basic virtual machine. In this example, we’ll deploy Talos, a minimal Kubernetes OS.
 
-Make sure you check Talos's [system requirements](https://www.talos.dev/v1.8/introduction/system-requirements/) before proceeding. Insufficient resource allocation (memory and disk) for the VM will lead to "unavailable space" error messages during the Talos installation.
+Please check Talos's [system requirements](https://www.talos.dev/v1.8/introduction/system-requirements/) before proceeding. Insufficient resource allocation (memory and disk) for the VM will lead to "unavailable space" error messages during the Talos installation.
 
 <ol>
 <li>
@@ -89,7 +91,7 @@ $ incus console talos-1 --type=vga
 
 # Managing multiple VM instances
 
-To run multiple instances of Talos or any other OS, you can automate the process using a Bash script. Here’s an example script, _start.sh_, to spin up several VMs:
+You can automate the process using a Bash script to run multiple instances of Talos or any other OS. Here’s an example script, _start.sh_, to spin up several VMs:
 
 {% highlight bash %}
 #!/bin/bash
@@ -141,11 +143,11 @@ If you want to delete all the created VM instances, you can use the following co
 $ incus list -f compact -c n | awk 'NR>1 {print $1}' | xargs -I {} incus delete --force {}
 {% endhighlight %}
 
-This command lists the names of all VM instances, filters out the header, and passes the names to `incus delete`, which deletes them forcefully.
+This command lists the names of all VM instances, filters out the header, and passes the names to `incus delete`, which forcefully deletes them.
 
 # Web UI
 
-For a more visual and user-friendly experience, you can manage Incus using its web-based interface. The Incus UI, forked from LXD UI, provides a convenient way to monitor and control your virtual machines and containers.
+You can manage Incus using its web-based interface, which, forked from LXD UI, provides a more visual and user-friendly experience. The Incus UI provides a convenient way to monitor and control your virtual machines and containers.
 
 To install the Incus Web UI on Arch Linux, follow these steps:
 
@@ -166,7 +168,7 @@ $ incus config set core.https_address=127.0.0.1:8443
 </li>
 </ol>
 
-This will bind the UI to localhost on port 8443, which you can then access via a browser by navigating to [https://127.0.0.1:8443](https://127.0.0.1:8443).
+This will bind the UI to localhost on port 8443, which you can access via a browser by navigating to [https://127.0.0.1:8443](https://127.0.0.1:8443).
 
 <p align="center">
 <img width="800px" alt="Incus UI" src="/assets/images/posts/incus/web-ui.png" />
@@ -174,9 +176,9 @@ This will bind the UI to localhost on port 8443, which you can then access via a
 
 With the Web UI, you can view running instances, manage resources, and interact with containers and VMs in a more intuitive manner, making it a helpful tool for those who prefer graphical interfaces over the command line.
 
-# Setting up talos and a Kubernetes cluster
+# Setting up Talos and a Kubernetes cluster
 
-Once the VMs are running, you can proceed to install Talos and configure a Kubernetes cluster.
+Once the VMs run, you can install Talos and configure a Kubernetes cluster.
 
 <ol>
 <li>
@@ -257,7 +259,7 @@ talos-3   Ready    <none>          3m8s    v1.31.1   10.158.18.125   <none>     
 
 # Finally
 
-By following these steps, you can efficiently deploy and manage VMs using Incus, install Talos, and create a Kubernetes cluster on Arch Linux. Incus provides a fast and versatile platform for virtualization, while Talos offers a lightweight OS optimized for Kubernetes deployments.
+Following these steps, you can efficiently deploy and manage VMs using Incus, install Talos, and create a Kubernetes cluster on Arch Linux. Incus provides a fast and versatile virtualization platform, while Talos offers a lightweight OS optimized for Kubernetes deployments.
 
 For more detailed documentation, refer to:
 
