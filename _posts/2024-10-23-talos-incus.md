@@ -198,7 +198,7 @@ $ yay -S talosctl
 Set Up the Control Plane: Generate the cluster configuration for Talos.
 
 {% highlight console %}
-$ export CONTROL_PLANE_ID="10.158.18.138
+$ export CONTROL_PLANE_ID="10.158.18.138"
 $ talosctl gen config cluster https://$CONTROL_PLANE_ID:6443 --install-disk /dev/sda
 {% endhighlight %}
 
