@@ -198,11 +198,11 @@ $ yay -S talosctl
 Set Up the Control Plane: Generate the cluster configuration for Talos.
 
 {% highlight console %}
-$ export CONTROL_PLANE_ID="10.158.18.138"
-$ talosctl gen config cluster https://$CONTROL_PLANE_ID:6443 --install-disk /dev/sda
+$ export CONTROL_PLANE_IP="10.158.18.138"
+$ talosctl gen config cluster https://$CONTROL_PLANE_IP:6443 --install-disk /dev/sda
 {% endhighlight %}
 
-Make sure to provide the correct <em>CONTROL_PLANE_ID</em> here, also make sure to provide the correct installation disk. The available disks of a VM can be listed as follows:
+Make sure to provide the correct <em>CONTROL_PLANE_IP</em> here, also make sure to provide the correct installation disk. The available disks of a VM can be listed as follows:
 
 {% highlight console %}
 $ talosctl -n $INSTANCE_IP disks --insecure
@@ -212,7 +212,7 @@ $ talosctl -n $INSTANCE_IP disks --insecure
 Apply Configuration: Apply the generated configuration to the control plane.
 
 {% highlight console %}
-$ talosctl -n $CONTROL_PLANE_ID apply-config --insecure --file controlplane.yaml
+$ talosctl -n $CONTROL_PLANE_IP apply-config --insecure --file controlplane.yaml
 {% endhighlight %}
 </li>
 <li>
@@ -220,14 +220,14 @@ Configure the control plane <a href="https://www.talos.dev/v1.5/kubernetes-guide
 
 {% highlight console %}
 $ export TALOSCONFIG=$(realpath ./talosconfig)
-$ talosctl config endpoint $CONTROL_PLANE_ID
+$ talosctl config endpoint $CONTROL_PLANE_IP
 {% endhighlight %}
 </li>
 <li>
 Bootstrap the Control Plane: Finally, bootstrap your Kubernetes control plane.
 
 {% highlight console %}
-$ talosctl -n $CONTROL_PLANE_ID bootstrap
+$ talosctl -n $CONTROL_PLANE_IP bootstrap
 {% endhighlight %}
 </li>
 </ol>
@@ -243,7 +243,7 @@ $ talosctl -n $NODE_IP apply-config --insecure --file worker.yaml
 You can verify the cluster members with:
 
 {% highlight console %}
-$ talosctl -n $CONTROL_PLANE_ID get members
+$ talosctl -n $CONTROL_PLANE_IP get members
 NODE            NAMESPACE   TYPE     ID        VERSION   HOSTNAME        MACHINE TYPE   OS               ADDRESSES
 10.158.18.138   cluster     Member   talos-1   2         talos-1.incus   controlplane   Talos (v1.8.1)   ["10.158.18.138","fd42:e514:aeb7:60e5:216:3eff:fe2d:69f1"]
 10.158.18.138   cluster     Member   talos-2   5         talos-2.incus   worker         Talos (v1.8.0)   ["10.158.18.254","fd42:e514:aeb7:60e5:216:3eff:fe4a:5f53"]
@@ -255,7 +255,7 @@ NODE            NAMESPACE   TYPE     ID        VERSION   HOSTNAME        MACHINE
 Once the cluster is set up, download the kubeconfig file and start interacting with Kubernetes using kubectl:
 
 {% highlight console %}
-$ talosctl -n $CONTROL_PLANE_ID kubeconfig ./kubeconfig
+$ talosctl -n $CONTROL_PLANE_IP kubeconfig ./kubeconfig
 $ kubectl --kubeconfig ./kubeconfig get node -owide
 NAME      STATUS   ROLES           AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE         KERNEL-VERSION   CONTAINER-RUNTIME
 talos-1   Ready    control-plane   4m53s   v1.31.1   10.158.18.138   <none>        Talos (v1.8.1)   6.6.54-talos     containerd://2.0.0-rc.5
