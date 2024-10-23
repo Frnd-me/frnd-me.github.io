@@ -91,6 +91,10 @@ $ incus console talos-1 --type=vga
 </li>
 </ol>
 
+<p align="center">
+<img width="800px" alt="VGA Console" src="/assets/images/posts/incus/vga.png" />
+</p>
+
 # Managing multiple VM instances
 
 You can automate the process using a Bash script to run multiple instances of Talos or any other OS. Here’s an example script, _start.sh_, to spin up several VMs:
