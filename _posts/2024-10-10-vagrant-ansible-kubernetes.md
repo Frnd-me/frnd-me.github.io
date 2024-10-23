@@ -6,6 +6,8 @@ summary: A guide to provisioning a local Kubernetes cluster using Ansible and Va
 tags: [kubernetes, ansible, vagrant]
 ---
 
+**Update: An easier procedure is described [here](/2024/10/23/talos-incus).**
+
 In this post, I'll walk you through setting up a local Kubernetes cluster using two powerful tools: Ansible and Vagrant. Both tools are widely used in DevOps workflows to automate infrastructure management; each serves a unique purpose in this setup.
 
 # Vagrant
